@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'loginreg/css/styles.css' %}" media="screen" title="no title"  charset="utf-8">
+
+</head>
+<body>
+    <h1>Login</h1>
+                {% if messages %}
+                    {% for message in messages %}
+                        <h3 class="message">{{message}}</h3>
+                    {% endfor %}
+                {% endif %}
+    <form action='/login', method='POST'>
+        {% csrf_token %}
+        <label for="emailforlogin">Email:<input type="text" name="emailforlogin" id="emailforlogin"></label>
+        <hr>
+        <label for="passwordforlogin">Password:<input type="password" name="passwordforlogin" id="passwordforlogin"></label>
+        <p><input type="submit" value="Login"></p>
+  </form>
+    <hr>
+    <h1>Register</h1>
+    <form action='/toregister' method='POST'>
+        {% csrf_token %}
+        <label for="first_name">First Name:<input type="text" name="first_name" id="first_name"></label>
+        <hr>
+        <label for="last_name">Last Name:<input type="text" name="last_name" id="last_name"></label>
+        <hr>
+        <label for="email">Email:<input type="text" name="email" id="email"></label>
+        <hr>
+        <label for="password">Password:<input type="password" name="password" id="password"></label>
+        <hr>
+        <label for="passwordconfirm">Password Confirmation:<input type="password" name="passwordconfirm" id="passwordconfirm"></label>
+        <p><input type="submit" value="Register"></p>
+  </form>
+</body>
+</html>
