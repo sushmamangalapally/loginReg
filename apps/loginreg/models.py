@@ -58,7 +58,7 @@ class UserManager(models.Manager):
             if user_list:
                 getuser = user_list[0]
                 if getuser.password == passwordforlogin:
-                    user = User.userManager.get(email = emailforlogin, password = passwordforlogin)
+                    user = User.userManager.filter(email = emailforlogin, password = passwordforlogin)
                     return {"status": True, "data": user}
                 else:
                     errors.append("Password is wrong!")

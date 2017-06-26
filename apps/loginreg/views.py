@@ -20,7 +20,7 @@ def login(request):
     if request.method == "POST":
         validations_for_login = User.userManager.login(request.POST['emailforlogin'], request.POST['passwordforlogin'])
         if validations_for_login['status']:
-            request.session["userId"] = validations_for_login['data'].id
+            request.session["userId"] = validations_for_login['data'][0].id
             return redirect('/success')
         else:
             messages.error(request, "Invalid email or password")
