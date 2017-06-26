@@ -15,16 +15,16 @@ LASTNAME_REGEX = re.compile(r'^[a-zA-Z]')
 class UserManager(models.Manager):
     def register(self, email,  first_name, last_name, password, passwordconfirmation):
         errorsforreg = []
-        no_same_email = True
+        # no_same_email = True
         if len(email) < 1 and not EMAIL_REGEX.match(email):
             errorsforreg.append("Email must not be empty or must be in good format -> asdf@mail.com!")
         
-        try:
-            checkforsameemail = User.userManager.get(email=email)
-            errorsforreg.append("Opps! Looks like this email already exists in our database!")
-            no_same_email = False
-        except:
-            no_same_email = True
+        # try:
+        #     checkforsameemail = User.userManager.get(email=email)
+        #     errorsforreg.append("Opps! Looks like this email already exists in our database!")
+        #     no_same_email = False
+        # except:
+        #     no_same_email = True
 
         if len(first_name) < 2 and not FIRSTNAME_REGEX.match(first_name):
             errorsforreg.append("Firstname must not be empty or must only have letters!")
@@ -37,9 +37,9 @@ class UserManager(models.Manager):
 
         if not errorsforreg:
             user = User.userManager.create(first_name = first_name, last_name = last_name, email = email, password = password)
-            return {"status": True, "sameemail": no_same_email, "data": user}
+            return {"status": True, "data": user}
         else:
-            return {"status": False, "sameemail": no_same_email, "data": errorsforreg}
+            return {"status": False, "data": errorsforreg}
 
     def login(self, emailforlogin, passwordforlogin):
         errors = []
