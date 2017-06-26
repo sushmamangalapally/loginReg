@@ -46,7 +46,7 @@ class UserManager(models.Manager):
 
         if len(emailforlogin) < 1:
             errors.append("Email must not be empty or must have more than 2 characters")
-        if not EMAIL_REGEX.match(email): # email regex
+        if not EMAIL_REGEX.match(emailforlogin): # email regex
             errors.append("Email must not be empty or must be in good format -> asdf@mail.com!")
         
         
