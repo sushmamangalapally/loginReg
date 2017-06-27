@@ -4,6 +4,8 @@ from django.db import models
 
 import re
 
+import bcrypt
+
 from django.contrib import messages
 
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
@@ -36,7 +38,9 @@ class UserManager(models.Manager):
             errorsforreg.append("Password and password confirmation must match!")
 
         if not errorsforreg:
-            user = User.userManager.create(first_name = first_name, last_name = last_name, email = email, password = password)
+            password = password.encode()
+            hashed = bcrypt.hashpw(password, bcrypt.gensalt())
+            user = User.userManager.create(first_name = first_name, last_name = last_name, email = email, password = hashed)
             return {"status": True, "data": user}
         else:
             return {"status": False, "data": errorsforreg}
